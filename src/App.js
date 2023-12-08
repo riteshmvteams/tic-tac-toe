@@ -80,6 +80,7 @@ export default function App() {
   const [isPlayer, setIsPlayer] = useState(true);
   const [show, setShow] = useState(false);
   const boxRef = useRef();
+  const [draw, setDraw] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
@@ -95,7 +96,7 @@ export default function App() {
 
         filtered[Math.floor(Math.random() * length)].click();
       }
-    }, 1000);
+    }, 500);
   }, [turn, isPlayer]);
 
   return (
@@ -117,23 +118,31 @@ export default function App() {
                 setTurn={setTurn}
                 key={i}
                 index={i}
+                setDraw={setDraw}
               />
             );
           })}
         </ul>
       </div>
       <Modal show={show} setShow={setShow}>
-        <div>{!turn ? "X winner" : "O winner"}</div>
+        <div>
+          {draw && "Ye le Ho gya Draw. *******ye"}
+
+          {!draw && !turn
+            ? "Raghu *****ya Lost (X Winner)"
+            : "Raghu *****ya winner ( O winner)"}
+        </div>
       </Modal>
     </>
   );
 }
 
-const Box = ({ turn, setTurn, index, setShow }) => {
+const Box = ({ turn, setTurn, index, setShow, setDraw }) => {
   const [player, setPlayer] = useState(null);
 
   const handlePlayer = (ind) => {
     if (player) return;
+
     const curPlayer = turn ? "X" : "O";
     setPlayer(curPlayer);
     playedArray[ind] = curPlayer;
@@ -144,6 +153,16 @@ const Box = ({ turn, setTurn, index, setShow }) => {
     if (finalResult) {
       console.log(`${curPlayer} is the winner`);
       setShow(true);
+    }
+
+    const drawResult = playedArray.every((el) => {
+      return el !== null;
+    });
+
+    if (!finalResult && drawResult) {
+      setShow(true);
+      setDraw(true);
+      console.log("Math Drawn");
     }
   };
 
