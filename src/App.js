@@ -126,11 +126,12 @@ export default function App() {
       </div>
       <Modal show={show} setShow={setShow}>
         <div>
-          {draw && "Ye le Ho gya Draw. *******ye"}
+          {!draw &&
+            (!turn
+              ? "Raghu *****ya Lost (X Winner)"
+              : "Raghu *****ya winner ( O winner)")}
 
-          {!draw && !turn
-            ? "Raghu *****ya Lost (X Winner)"
-            : "Raghu *****ya winner ( O winner)"}
+          {draw && "Ye le Ho gya Draw. *******ye"}
         </div>
       </Modal>
     </>
