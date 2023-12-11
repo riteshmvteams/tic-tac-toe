@@ -16,6 +16,7 @@ const allEqual = (arr) => {
   });
 };
 
+// checking overall game winner
 const checkGameWinner = (length) => {
   const result1 = checkHorizontalWinner(length);
   const result2 = checkVerticalWinner(length);
@@ -23,7 +24,7 @@ const checkGameWinner = (length) => {
 
   return result1 || result2 || result3;
 };
-
+// checking the winner in horizontal row
 const checkHorizontalWinner = () => {
   const arr1 = [];
   const arr2 = [];
@@ -41,7 +42,7 @@ const checkHorizontalWinner = () => {
 
   return res1 || res2 || res3;
 };
-
+// checking the winner in vertical column
 const checkVerticalWinner = () => {
   const arr1 = [];
   const arr2 = [];
@@ -59,7 +60,7 @@ const checkVerticalWinner = () => {
 
   return res1 || res2 || res3;
 };
-
+// checking the winner in diagonally
 const checkDiagonally = () => {
   const arr1 = [];
   const arr2 = [];
@@ -101,7 +102,7 @@ export default function App() {
 
   return (
     <>
-      <div>
+      <div className="game__wrapper">
         <ul
           ref={boxRef}
           className="game__board"
@@ -125,13 +126,11 @@ export default function App() {
         </ul>
       </div>
       <Modal show={show} setShow={setShow}>
-        <div>
+        <div className="modal__body">
           {!draw &&
-            (!turn
-              ? "Raghu *****ya Lost (X Winner)"
-              : "Raghu *****ya winner ( O winner)")}
+            (!turn ? "Player x is the winner" : "Player O is the winner")}
 
-          {draw && "Ye le Ho gya Draw. *******ye"}
+          {draw && "Match Is Drawn"}
         </div>
       </Modal>
     </>
@@ -152,7 +151,6 @@ const Box = ({ turn, setTurn, index, setShow, setDraw }) => {
     const finalResult = checkGameWinner(box);
 
     if (finalResult) {
-      console.log(`${curPlayer} is the winner`);
       setShow(true);
     }
 
@@ -168,7 +166,10 @@ const Box = ({ turn, setTurn, index, setShow, setDraw }) => {
   };
 
   return (
-    <li className="game__board--box" onClick={() => handlePlayer(index)}>
+    <li
+      className={`game__board--box ${player === "X" ? "second" : "first"}`}
+      onClick={() => handlePlayer(index)}
+    >
       {player}
     </li>
   );
