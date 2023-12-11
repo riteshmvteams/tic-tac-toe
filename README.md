@@ -1,5 +1,5 @@
 # Tic-Tac-Toe small Game
-### [Live view](https://www.google.com)
+### [Live view](https://zero-kati.vercel.app/)
 
 ## How to Run Project Locally
 1. Clone the project
