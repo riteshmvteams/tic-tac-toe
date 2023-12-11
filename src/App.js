@@ -4,11 +4,11 @@ import Modal from "./components/Modal";
 
 const playedArray = [];
 const box = 3;
-
+// generating array with values fill with null
 Array.from({ length: box * box }).map((_, i) => {
   return playedArray.push(null);
 });
-
+// utility fuction to check the equality in a array
 const allEqual = (arr) => {
   return arr.every((val) => {
     if (val === null) return false;
@@ -83,6 +83,7 @@ export default function App() {
   const boxRef = useRef();
   const [draw, setDraw] = useState(false);
 
+  // if we want to play with the computer ------- This will run if we setIsPlayer to false
   useEffect(() => {
     setTimeout(() => {
       if (turn && !isPlayer) {
@@ -139,7 +140,7 @@ export default function App() {
 
 const Box = ({ turn, setTurn, index, setShow, setDraw }) => {
   const [player, setPlayer] = useState(null);
-
+  // This function will run when click any of the box
   const handlePlayer = (ind) => {
     if (player) return;
 
